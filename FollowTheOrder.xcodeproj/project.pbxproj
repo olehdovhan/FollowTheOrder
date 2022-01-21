@@ -15,6 +15,8 @@
 		FE65E164279941980021407E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FE65E162279941980021407E /* Main.storyboard */; };
 		FE65E166279941990021407E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FE65E165279941990021407E /* Assets.xcassets */; };
 		FE65E169279941990021407E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FE65E167279941990021407E /* LaunchScreen.storyboard */; };
+		FE65E17127994FB50021407E /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE65E17027994FB50021407E /* Images.swift */; };
+		FE8F8E19279A90DF006E87EA /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8F8E18279A90DF006E87EA /* Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +29,8 @@
 		FE65E163279941980021407E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		FE65E165279941990021407E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FE65E168279941990021407E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		FE65E17027994FB50021407E /* Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
+		FE8F8E18279A90DF006E87EA /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,16 +63,26 @@
 		FE65E157279941980021407E /* FollowTheOrder */ = {
 			isa = PBXGroup;
 			children = (
-				FE65E158279941980021407E /* AppDelegate.swift */,
 				FE65E15A279941980021407E /* GameScene.sks */,
 				FE65E15C279941980021407E /* Actions.sks */,
 				FE65E15E279941980021407E /* GameScene.swift */,
 				FE65E160279941980021407E /* GameViewController.swift */,
-				FE65E162279941980021407E /* Main.storyboard */,
-				FE65E165279941990021407E /* Assets.xcassets */,
-				FE65E167279941990021407E /* LaunchScreen.storyboard */,
+				FE65E16F27994F790021407E /* Supporting Files */,
 			);
 			path = FollowTheOrder;
+			sourceTree = "<group>";
+		};
+		FE65E16F27994F790021407E /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				FE65E158279941980021407E /* AppDelegate.swift */,
+				FE65E162279941980021407E /* Main.storyboard */,
+				FE65E167279941990021407E /* LaunchScreen.storyboard */,
+				FE65E165279941990021407E /* Assets.xcassets */,
+				FE65E17027994FB50021407E /* Images.swift */,
+				FE8F8E18279A90DF006E87EA /* Extension.swift */,
+			);
+			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -144,7 +158,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FE8F8E19279A90DF006E87EA /* Extension.swift in Sources */,
 				FE65E15F279941980021407E /* GameScene.swift in Sources */,
+				FE65E17127994FB50021407E /* Images.swift in Sources */,
 				FE65E161279941980021407E /* GameViewController.swift in Sources */,
 				FE65E159279941980021407E /* AppDelegate.swift in Sources */,
 			);
@@ -312,7 +328,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -340,7 +356,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

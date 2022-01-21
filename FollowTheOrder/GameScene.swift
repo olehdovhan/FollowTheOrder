@@ -8,81 +8,139 @@
 import SpriteKit
 import GameplayKit
 
-class GameScene: SKScene {
+protocol GameLogicProtocol {
+    func makeNodesAndStart() -> [String]
+    func animateNodesin(array: [String])
+    func recognizeTapsOnNodes()
+    func addInArrayNode(index: Int)
+    func compareArrays(game: [Int], user: [Int]) -> Bool
+}
+
+
+class GameScene: SKScene, GameLogicProtocol {
     
-    private var label : SKLabelNode?
-    private var spinnyNode : SKShapeNode?
+    var startLabel: SKLabelNode!
+    var level = 1
+    var levelLabel: SKLabelNode {
+        let level = SKLabelNode(text: "Level \(level)")
+      level.horizontalAlignmentMode = .center
+      level.fontSize = 50
+      level.fontName = "AvenirNext-Bold"
+      level.fontColor = .white
+      level.position = CGPoint(x: 0,
+                               y: 550)
+     return level
+    }
+    
+    var rememberLabel: SKLabelNode!
+    var countDownLabel: SKLabelNode!
+    
+    var presidentsArray: [String] = Presidents.allCases.map { $0.rawValue }
+    
+    var back: SKSpriteNode {
+        var back = SKSpriteNode(imageNamed: Images.background.rawValue)
+        back.position = CGPoint(x: 0, y: 0)
+        back.size.width = 800
+        back.size.height = 1500
+        back.blendMode = .replace
+        back.zPosition = -1
+        return back
+    }
     
     override func didMove(to view: SKView) {
         
-        // Get label node from scene and store it for use later
-        self.label = self.childNode(withName: "//helloLabel") as? SKLabelNode
-        if let label = self.label {
-            label.alpha = 0.0
-            label.run(SKAction.fadeIn(withDuration: 2.0))
-        }
+        physicsBody = SKPhysicsBody(edgeLoopFrom: CGRect(x: -320,
+                                                         y: -640,
+                                                         width: 640,
+                                                         height: 1280))
+        addChild(back)
+  
+        addChild(levelLabel)
+      
         
-        // Create shape node to use during mouse interaction
-        let w = (self.size.width + self.size.height) * 0.05
-        self.spinnyNode = SKShapeNode.init(rectOf: CGSize.init(width: w, height: w), cornerRadius: w * 0.3)
+        startLabel = SKLabelNode(text: "Touch for Start")
+        startLabel.horizontalAlignmentMode = .center
+        startLabel.fontSize = 75
+        startLabel.fontName = "AvenirNext-Bold"
+        startLabel.fontColor = .blue
+        startLabel.position = CGPoint(x: 0,
+                                 y: -550)
         
-        if let spinnyNode = self.spinnyNode {
-            spinnyNode.lineWidth = 2.5
-            
-            spinnyNode.run(SKAction.repeatForever(SKAction.rotate(byAngle: CGFloat(Double.pi), duration: 1)))
-            spinnyNode.run(SKAction.sequence([SKAction.wait(forDuration: 0.5),
-                                              SKAction.fadeOut(withDuration: 0.5),
-                                              SKAction.removeFromParent()]))
-        }
-    }
-    
-    
-    func touchDown(atPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.green
-            self.addChild(n)
-        }
-    }
-    
-    func touchMoved(toPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.blue
-            self.addChild(n)
-        }
-    }
-    
-    func touchUp(atPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.red
-            self.addChild(n)
-        }
+        addChild(startLabel)
+
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let label = self.label {
-            label.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
-        }
+        guard let touch = touches.first else  { return }
+        let location = touch.location(in: self)
         
-        for t in touches { self.touchDown(atPoint: t.location(in: self)) }
+        let objects = nodes(at: location)
+     
+
+        if objects.contains(startLabel) {
+            var nodes = makeNodesAndStart()
+            startLabel.isHidden = true
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                self.animateNodesin(array: nodes)
+            }
+        }
     }
-    
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchMoved(toPoint: t.location(in: self)) }
-    }
-    
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchUp(atPoint: t.location(in: self)) }
-    }
-    
-    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchUp(atPoint: t.location(in: self)) }
-    }
-    
-    
+
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
+    }
+    
+    func makeNodesAndStart() -> [String] {
+        let array = randomNumbersArray
+        var gameArray = [String]()
+        for item in 0...level + 8 {
+            let randomPres = array[item]
+          print(array)
+            gameArray.append(presidentsArray[randomPres])
+            let object = SKSpriteNode(imageNamed: presidentsArray[randomPres])
+            object.name = presidentsArray[randomPres]
+            object.physicsBody = SKPhysicsBody(circleOfRadius: 125)
+            object.size = CGSize(width: 120,
+                                 height: 120)
+            object.position = CGPoint(x: Int.random(in: -320...320),
+                                      y: Int.random(in: -620...440))
+            addChild(object)
+            
+        }
+        return gameArray
+    }
+    
+    func animateNodesin(array: [String]) {
+        for node in array {
+            childNode(withName: node)?.physicsBody?.isDynamic = false
+        }
+        
+        for (index,node) in array.enumerated() {
+            let delay = SKAction.wait(forDuration: TimeInterval(index) * 1)
+            let scaleUp = SKAction.scale(to: 2,
+                                               duration: 0.25)
+            let scaleDown = SKAction.scale(to: 1,
+                                                 duration: 0.25)
+            let wait = SKAction.wait(forDuration: 1)
+            let scaleActionSequence = SKAction.sequence([scaleUp,
+                                                         scaleDown,
+                                                         wait])
+            let actionSequence = SKAction.sequence([delay,
+                                                   scaleActionSequence])
+            childNode(withName: node)?.run(actionSequence)
+        }
+    }
+    
+    func recognizeTapsOnNodes() {
+        
+    }
+    
+    func addInArrayNode(index: Int) {
+        
+    }
+    
+    func compareArrays(game: [Int], user: [Int]) -> Bool {
+        
+        return true
     }
 }

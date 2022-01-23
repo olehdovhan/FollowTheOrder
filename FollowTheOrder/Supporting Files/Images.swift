@@ -10,7 +10,7 @@ import UIKit
 
 
 enum Images: String {
-    case background, greenCard, putin, vodka
+    case background, greenCard, putin, shtamp
 }
 
 enum Presidents: String, CaseIterable {

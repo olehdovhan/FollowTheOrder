@@ -127,6 +127,7 @@ class GameScene: SKScene, GameLogicProtocol {
         let objects = nodes(at: location)
         let node = atPoint(location) as? SKSpriteNode
         if objects.contains(startLabel) {
+            AudioPlayer.shared.play(SoundList.click)
             startLabel.isHidden = true
             runCountDownLabel(time: 3)
             var nodes: [String]!
@@ -163,9 +164,9 @@ class GameScene: SKScene, GameLogicProtocol {
                            orderedNodes: [String]) -> Bool? {
         guard let name = object.name else { return nil }
         print(name)
+        AudioPlayer.shared.play(SoundList.click)
         guard name == currentOrderArray[comparedCount] else { return false }
         object.run(touchNodeAnimation())
-        // Проверь может не нужно добавлять touches
         touchesNodesArray.append(name)
         comparedCount += 1
         guard touchesNodesArray.count == orderedNodes.count else { return nil }

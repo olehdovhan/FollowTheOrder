@@ -25,7 +25,7 @@ class ResultScene: SKScene {
             backMessage = "Start game again"
         }
         let message = "Oooops :[, \nYou stay in Russia"
-        let constant: CGFloat = won ? 500 : 200
+        let constant: CGFloat = won ? 850 : 200
         let label = SKLabelNode(fontNamed: "Chalkduster")
         label.text = message
         label.fontSize = 30
@@ -40,6 +40,7 @@ class ResultScene: SKScene {
         gameLabel.fontSize = 60
         gameLabel.numberOfLines = 3
         gameLabel.fontColor = SKColor.black
+        gameLabel.preferredMaxLayoutWidth = 500
         gameLabel.position = CGPoint(x: size.width/2,
                                  y: size.height - 400)
         
@@ -49,33 +50,46 @@ class ResultScene: SKScene {
         greenCard.position = CGPoint(x: size.width/2,
                                      y: size.height/2)
 
-        var putinNode = SKSpriteNode(imageNamed: Images.putin.rawValue)
+        let putinNode = SKSpriteNode(imageNamed: Images.putin.rawValue)
         putinNode.size = CGSize(width: 640,
                                 height: 860)
         putinNode.position = CGPoint(x: size.width/2,
                                      y: size.height/2)
         
+        let shtamp = SKSpriteNode(imageNamed: Images.shtamp.rawValue)
+        shtamp.size = CGSize(width: 3750*1.1,
+                             height: 3300*1.1)
+        shtamp.position = CGPoint(x: size.width/2,
+                                  y: size.height/2 - 100)
+        shtamp.zPosition = 1
+        
         switch won {
         case true:
             switch level {
             case 1...4:
+                AudioPlayer.shared.play(SoundList.win)
                 if let  dollarParticles = SKEmitterNode(fileNamed: "DollarParticle") {
                     dollarParticles.position = CGPoint(x: size.width/2 ,
                                                         y: size.height/2 )
                     addChild(dollarParticles)
+                    NetworkManager.shared.getPrediction { prediction in
+                        let message = prediction.fortune
+                        label.text = message
+                        self.addChild(label)
+                    }
                 }
             case 5:
+                AudioPlayer.shared.play(SoundList.anthemUSA)
                 addChild(gameLabel)
                 addChild(greenCard)
+                addChild(shtamp)
+                shtamp.run(shtampAnimation())
+                //
             default:
                 break
             }
-            NetworkManager.shared.getPrediction { prediction in
-                let message = prediction.fortune
-                label.text = message
-                self.addChild(label)
-            }
         case false:
+            AudioPlayer.shared.play(SoundList.lose)
             addChild(label)
             addChild(putinNode)
         }
@@ -98,12 +112,23 @@ class ResultScene: SKScene {
         let location = touch.location(in: self)
         let objects = nodes(at: location)
         if objects.contains(backActionNode) {
-            if let view = self.view as! SKView? {
+            AudioPlayer.shared.play(SoundList.click)
+
+            if let view = self.view {
                 if let scene = SKScene(fileNamed: "GameScene") {
                     scene.scaleMode = .aspectFill
                     view.presentScene(scene)
                 }
             }
         }
+    }
+    func shtampAnimation() -> SKAction {
+        let scaleActionMin = SKAction.scale(to: 0.33, duration: 0.5)
+        let waitAction = SKAction.wait(forDuration: 0.5)
+        let scaleActionNorm = SKAction.scale(to: 1, duration: 2)
+        let outPositionAction = SKAction.moveBy(x: 3000, y: -1000, duration: 3)
+        let groupOut = SKAction.group([scaleActionNorm, outPositionAction])
+        let sequenceAction = SKAction.sequence([scaleActionMin, waitAction, groupOut])
+        return sequenceAction
     }
 }

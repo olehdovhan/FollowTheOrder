@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FE0CF252279D8FD6007249BE /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0CF251279D8FD6007249BE /* AudioPlayer.swift */; };
+		FE0CF257279D908A007249BE /* click.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FE0CF253279D9089007249BE /* click.mp3 */; };
+		FE0CF258279D908A007249BE /* lose.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FE0CF254279D908A007249BE /* lose.mp3 */; };
+		FE0CF259279D908A007249BE /* win.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FE0CF255279D908A007249BE /* win.mp3 */; };
+		FE0CF25A279D908A007249BE /* anthemUSA.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FE0CF256279D908A007249BE /* anthemUSA.mp3 */; };
 		FE2398B2279C5C72008F89C0 /* ResultScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2398B1279C5C72008F89C0 /* ResultScene.swift */; };
 		FE65E159279941980021407E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE65E158279941980021407E /* AppDelegate.swift */; };
 		FE65E15D279941980021407E /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = FE65E15C279941980021407E /* Actions.sks */; };
@@ -25,6 +30,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		FE0CF251279D8FD6007249BE /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
+		FE0CF253279D9089007249BE /* click.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = click.mp3; sourceTree = "<group>"; };
+		FE0CF254279D908A007249BE /* lose.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = lose.mp3; sourceTree = "<group>"; };
+		FE0CF255279D908A007249BE /* win.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = win.mp3; sourceTree = "<group>"; };
+		FE0CF256279D908A007249BE /* anthemUSA.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = anthemUSA.mp3; sourceTree = "<group>"; };
 		FE2398B1279C5C72008F89C0 /* ResultScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultScene.swift; sourceTree = "<group>"; };
 		FE65E155279941980021407E /* FollowTheOrder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FollowTheOrder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE65E158279941980021407E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -55,6 +65,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		FE0CF250279D8FBB007249BE /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				FE0CF251279D8FD6007249BE /* AudioPlayer.swift */,
+				FE0CF256279D908A007249BE /* anthemUSA.mp3 */,
+				FE0CF253279D9089007249BE /* click.mp3 */,
+				FE0CF254279D908A007249BE /* lose.mp3 */,
+				FE0CF255279D908A007249BE /* win.mp3 */,
+			);
+			path = Sounds;
+			sourceTree = "<group>";
+		};
 		FE65E14C279941980021407E = {
 			isa = PBXGroup;
 			children = (
@@ -91,6 +113,7 @@
 		FE65E16F27994F790021407E /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				FE0CF250279D8FBB007249BE /* Sounds */,
 				FE65E158279941980021407E /* AppDelegate.swift */,
 				FE65E162279941980021407E /* Main.storyboard */,
 				FE65E167279941990021407E /* LaunchScreen.storyboard */,
@@ -168,12 +191,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FE0CF259279D908A007249BE /* win.mp3 in Resources */,
+				FE0CF257279D908A007249BE /* click.mp3 in Resources */,
+				FE0CF258279D908A007249BE /* lose.mp3 in Resources */,
 				FEE1C00F279C8A250087B434 /* DollarParticle.sks in Resources */,
 				FE65E164279941980021407E /* Main.storyboard in Resources */,
 				FEE1C00B279C84810087B434 /* GameScene.sks in Resources */,
 				FE65E166279941990021407E /* Assets.xcassets in Resources */,
 				FE65E169279941990021407E /* LaunchScreen.storyboard in Resources */,
 				FE65E15D279941980021407E /* Actions.sks in Resources */,
+				FE0CF25A279D908A007249BE /* anthemUSA.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -191,6 +218,7 @@
 				FE65E15F279941980021407E /* GameScene.swift in Sources */,
 				FE65E17127994FB50021407E /* Images.swift in Sources */,
 				FE65E161279941980021407E /* GameViewController.swift in Sources */,
+				FE0CF252279D8FD6007249BE /* AudioPlayer.swift in Sources */,
 				FEE1C014279CB2D10087B434 /* FortunePrediction.swift in Sources */,
 				FE65E159279941980021407E /* AppDelegate.swift in Sources */,
 			);
